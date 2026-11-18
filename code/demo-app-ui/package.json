@@ -13,7 +13,9 @@
     "mock:bff": "./scripts/start-wiremock.sh 8080",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:playwright": "npx playwright test --headed",
+    "test:playwright:headless": "npx playwright test"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-rc.0",
