@@ -11,6 +11,8 @@ export class LoginPage {
     await loginLocators(this.page).emailInput.fill(email);
     await loginLocators(this.page).passwordInput.fill(password);
     await loginLocators(this.page).loginButton.click();
+
+    await loginLocators(this.page).logoutButton.waitFor({ timeout: 10000 });
   }
 
   async getWelcomeText(): Promise<string> {

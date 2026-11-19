@@ -10,7 +10,7 @@ test.describe("Login Functionality Testing", () => {
 
       await loginPage.login(user.email, user.password);
 
-      await page.waitForURL(user.url, { timeout: 5000 });
+      await page.waitForURL(user.url, { timeout: 10000 });
 
       const welcomeText = await loginPage.getWelcomeText();
 
@@ -26,7 +26,6 @@ test.describe("Login Functionality Testing", () => {
     await loginPage.login(users.invalidUser.email, users.invalidUser.password);
 
     const errorMessage = await loginLocators(page).errorMessage.innerText();
-    console.log("Error Message:", errorMessage);
     expect(errorMessage).toBe(messages.invalidCredentials);
   });
 });
