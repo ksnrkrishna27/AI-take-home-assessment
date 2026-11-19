@@ -14,6 +14,12 @@ export interface ClaimTableData {
   amount: string;
 }
 
+export interface ClaimSummary {
+  claimId: string;
+  amount: string;
+  status: string;
+}
+
 export class ClaimsPage {
   constructor(private readonly page: Page) {
     this.page = page;
@@ -38,6 +44,27 @@ export class ClaimsPage {
       description: fullDescription ?? (await descriptionCell.innerText()),
       amount: await locators.claimAmountCell(firstRow).innerText(),
     };
+  }
+
+  async getFirstClaimSummary(): Promise<ClaimSummary> {
+    const locators = claimPageLocators(this.page);
+    const firstRow = locators.claimTableRows.first();
+
+    return {
+      claimId: await locators.claimIdCell(firstRow).innerText(),
+      amount: await locators.claimAmountCell(firstRow).innerText(),
+      status: await firstRow.getByRole("status").innerText(),
+    };
+  }
+
+  async getFirstClaimStatus(): Promise<string> {
+    const locators = claimPageLocators(this.page);
+    return locators.claimStatusCell(locators.claimTableRows.first()).innerText();
+  }
+
+  async refreshClaims(): Promise<void> {
+    await this.page.reload();
+    await this.page.locator("tbody tr").first().waitFor({ state: "visible" });
   }
 
   async validateClaimSubmitButton(): Promise<void> {
@@ -81,5 +108,12 @@ export class ClaimsPage {
   async finalSubmission(): Promise<void> {
     const locators = claimPageLocators(this.page);
     await locators.finalSubmitClaimButton.click();
+  }
+
+  async submitNewClaim(details: IncidentDetails, description: string): Promise<void> {
+    await this.openClaimForm("button");
+    await this.fillIncidentDetails(details);
+    await this.fillDescriptionAndProceed(description);
+    await this.finalSubmission();
   }
 }
