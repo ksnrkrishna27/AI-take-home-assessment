@@ -24,6 +24,5 @@ AI assistance was used as a development aid during the assessment. All generated
 
 ## Current outcome
 
-The repository contains a working Playwright login suite with positive claimant and administrator scenarios, invalid credentials coverage, reusable test data, and Page Object Model support.
+The repository contains Playwright coverage for login, claims-page layout, claim submission, claim lifecycle status transitions, and a successful claim-submission API test. The tests use reusable Page Objects, locators, test data, separate browser contexts for claimant and administrator sessions, and API helper methods.
 
-The remaining claim lifecycle, API, visual, and load tests are documented in `TESTING_APPROACH.md` as future work that was not completed within the available assessment time.

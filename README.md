@@ -138,6 +138,8 @@ The codebase ships with **unit tests** across all three tiers and scaffolding fo
 | Integration tests | Testcontainers | Scaffolded — empty |
 | Architecture tests | ArchUnit | Provided |
 
+The Playwright E2E suite is now implemented under `code/demo-app-ui/tests/e2e/` and covers login, claims-page layout, claim submission, claim lifecycle status transitions, and a successful claim-submission API test.
+
 ### What's been disabled
 
 To keep the build simple and focused on the app itself, the following have been turned off in `pom.xml` (but the code/config remains for the QA team to re-enable and work with):
@@ -177,6 +179,12 @@ cd code/demo-app-ui && npm test
 
 ```bash
 cd code/demo-app-ui && npx playwright test
+```
+
+Run the API claim-submission test:
+
+```bash
+cd code/demo-app-ui && npx playwright test tests/e2e/submitClaim.api.spec.ts
 ```
 
 ---
