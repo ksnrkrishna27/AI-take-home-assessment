@@ -1,13 +1,23 @@
 import { faker } from "@faker-js/faker";
 
+const requiredEnv = (name: string): string => {
+  const value = process.env[name];
+
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+
+  return value;
+};
+
 export const users = {
   claimantUser: {
-    email: "claimant@demo.com",
-    password: "Claimant123!",
+    email: requiredEnv("CLAIMANT_EMAIL"),
+    password: requiredEnv("CLAIMANT_PASSWORD"),
   },
   adminUser: {
-    email: "admin@demo.com",
-    password: "Admin123!",
+    email: requiredEnv("ADMIN_EMAIL"),
+    password: requiredEnv("ADMIN_PASSWORD"),
   },
   invalidUser: {
     email: "invalid@demo.com",

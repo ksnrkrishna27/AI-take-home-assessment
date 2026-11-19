@@ -1,4 +1,24 @@
+import fs from "node:fs";
+import path from "node:path";
 import { defineConfig, devices } from "@playwright/test";
+
+const envFile = path.resolve(__dirname, ".env");
+
+if (fs.existsSync(envFile)) {
+  for (const line of fs.readFileSync(envFile, "utf8").split(/\r?\n/)) {
+    const trimmedLine = line.trim();
+
+    if (!trimmedLine || trimmedLine.startsWith("#")) continue;
+
+    const separator = trimmedLine.indexOf("=");
+    if (separator === -1) continue;
+
+    const key = trimmedLine.slice(0, separator).trim();
+    const value = trimmedLine.slice(separator + 1).trim().replace(/^['"]|['"]$/g, "");
+
+    if (!process.env[key]) process.env[key] = value;
+  }
+}
 
 export default defineConfig({
   testDir: "./tests/e2e",

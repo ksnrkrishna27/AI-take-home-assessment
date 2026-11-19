@@ -178,7 +178,10 @@ cd code/demo-app-ui && npm test
 ### Run E2E tests (requires full stack running)
 
 ```bash
-cd code/demo-app-ui && npx playwright test
+cd code/demo-app-ui
+cp .env.example .env
+# Add the Claimant and Admin credentials to .env before running tests.
+npx playwright test
 ```
 
 Run the API claim-submission test:
